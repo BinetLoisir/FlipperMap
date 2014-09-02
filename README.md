@@ -1,4 +1,4 @@
-Clone the repo : `git clone https://github.com/BinetLoisir/FlipperMap.git`
+Clone the repo : `git clone git@github.com:BinetLoisir/FlipperMap.git`
 
 Initialize database : `rake db:create db:migrate db:init`
 
