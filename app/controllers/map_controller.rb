@@ -3,7 +3,8 @@ class MapController < ApplicationController
     @latitude = Bar.first[:latitude]
     @longitude = Bar.first[:longitude]
     @bar_list = Bar.all.map do |bar|
-      description = bar.location.map { |location| location.flip[:name] }
+      description = "<a href=\"#{bar[:url]}\" class=\"hiddenlink\"><b>#{bar[:name]}</b></a><br>"
+      description += bar.location.map { |location| location.flip[:name] }.join('<br>')
       {
         "lat" => bar[:latitude].to_s,
         "lng" => bar[:longitude].to_s,
@@ -12,7 +13,7 @@ class MapController < ApplicationController
           "width" =>  28,
           "height" => 40
         },
-        "infowindow" => description.join('<br>')
+        "infowindow" => description
       }
     end.to_json
   end
