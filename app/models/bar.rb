@@ -144,6 +144,22 @@ class Bar < ActiveRecord::Base
       puts "#{normal_price} - #{price_s}"
       puts happyhour
       puts '----------'
+      address(address)
     end
+  end
+
+  def self.address(address)
+    url = 'https://maps.googleapis.com/maps/api/geocode/json'
+    request_parameters = {
+      address: "#{address} Paris France",
+      key: 'AIzaSyAXgCgpPKM09uYO7HRL23S2a6GD9Y3gNz0',
+    }
+    uri = URI.parse(url)
+    uri.query = URI.encode_www_form(request_parameters)
+    response = Net::HTTP.get_response(uri)
+    body = response.body
+    puts address
+    puts '----'
+    puts body
   end
 end
