@@ -2,7 +2,7 @@
   <% Flip.all.order('rating IS NULL, rating DESC').map do |flip| %>
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <span class="badge"><%= flip[:rating]%></span>&nbsp;
+      <% if flip[:rating].to_f > 0 %><span class="badge"><%= flip[:rating]%></span>&nbsp;<% end %>
       <a href="<%=flip[:url]%>" class="hidden-link-white"><%= flip[:name]%></a>
     </div>
     <table class="table">
