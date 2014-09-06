@@ -28,7 +28,12 @@
   top: -20px;
 }
 
-.hidden-link {
+.hidden-link-white {
   color: #FFFFFF;
+  text-decoration: none;
+}
+
+.hidden-link-black {
+  color: #000000;
   text-decoration: none;
 }

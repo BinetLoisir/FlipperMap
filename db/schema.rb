@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905221857) do
+ActiveRecord::Schema.define(version: 20140906135042) do
 
   create_table "bars", force: true do |t|
     t.string   "name"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20140905221857) do
 
   create_table "flippers", force: true do |t|
     t.string "name"
+    t.float  "rating", limit: 24
+    t.string "url"
   end
 
   create_table "locations", force: true do |t|

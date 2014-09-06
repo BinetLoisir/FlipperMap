@@ -1,0 +1,23 @@
+<div class="well well-lg">
+  <% Flip.all.order(rating: :desc).map do |flip| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span class="badge"><%= flip[:rating]%></span>&nbsp;
+      <a href="<%=flip[:url]%>" class="hidden-link-white"><%= flip[:name]%></a>
+    </div>
+    <table class="table">
+      <% flip.bars.map do |bar| %>
+      <tr>
+        <td>
+          <a href="<%=bar[:url]%>" class="hidden-link-black" data-toggle="tooltip" data-placement="right" title="<%= bar[:address] %>">
+            <%= bar[:name] %>&nbsp;&nbsp;
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <% end %>
+</div>
+
+<script type='text/javascript'>$('.hidden-link-black').tooltip()</script>
