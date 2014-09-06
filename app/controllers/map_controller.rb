@@ -12,7 +12,7 @@ class MapController < ApplicationController
         "lat" => bar[:latitude].to_s,
         "lng" => bar[:longitude].to_s,
         "picture" => {
-          "url" => "http://localhost:3000/assets/ring.png",
+          "url" => "/assets/ring.png",
           "width" =>  28,
           "height" => 24
         },
@@ -27,7 +27,7 @@ class MapController < ApplicationController
         "lat" => bar[:latitude].to_s,
         "lng" => bar[:longitude].to_s,
         "picture" => {
-          "url" => "http://localhost:3000/assets/holypint_tiny.png",
+          "url" => "/assets/holypint_tiny.png",
           "width" =>  28,
           "height" => 40
         },
