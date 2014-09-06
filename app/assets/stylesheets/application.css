@@ -22,3 +22,13 @@
     background-size: cover;
     -o-background-size: cover;
 }
+
+.page {
+  position: relative;
+  top: -20px;
+}
+
+.hidden-link {
+  color: #FFFFFF;
+  text-decoration: none;
+}

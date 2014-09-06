@@ -1,10 +1,4 @@
 class MapController < ApplicationController
-  def index
-  end
-
-  def contact
-  end
-
   def map
     @latitude = Bar.first[:latitude]
     @longitude = Bar.first[:longitude]
@@ -38,5 +32,14 @@ class MapController < ApplicationController
       }
     end
     @bar_list = first_bar_list.concat(second_bar_list).to_json
+  end
+
+  def info
+  end
+
+  def pinballs
+  end
+
+  def contact
   end
 end

@@ -1,2 +1,22 @@
-<div class="full"></div>
-<!-- <img src="/assets/photo_tradi.jpg"> -->
+<div id="map" style='width: 100%; height: 800px;'></div>
+
+<script type="text/javascript">
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  if(navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(displayOnMap);
+  bar_array = JSON.parse("<%=raw escape_javascript @bar_list %>")
+  markers = handler.addMarkers(bar_array);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(16);
+});
+
+function displayOnMap(position){
+  var marker = handler.addMarker({
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  });
+  handler.map.centerOn(marker);
+};
+</script>
