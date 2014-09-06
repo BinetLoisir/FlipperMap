@@ -65,6 +65,8 @@ class Flip < ActiveRecord::Base
 
         rating = doc.at_css('a.linkid').parent.parent.parent.parent.parent.parent.parent.children[3].children[1].children.children.children.text.to_f
 
+        debugger
+
         flip[:rating] = rating if rating > 0
         flip[:url] = url
         flip.save
