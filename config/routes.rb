@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
 
   # Example of regular route:
-    # get 'map' => 'map#map'
+    get 'map' => 'map#map'
     # get 'script' => 'map#script'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

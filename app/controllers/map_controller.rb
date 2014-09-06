@@ -1,5 +1,8 @@
 class MapController < ApplicationController
   def index
+  end
+
+  def map
     @latitude = Bar.first[:latitude]
     @longitude = Bar.first[:longitude]
     first_bar_list = Bar.all.map do |bar|
