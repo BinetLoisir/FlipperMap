@@ -2,6 +2,9 @@ class MapController < ApplicationController
   def index
   end
 
+  def contact
+  end
+
   def map
     @latitude = Bar.first[:latitude]
     @longitude = Bar.first[:longitude]
