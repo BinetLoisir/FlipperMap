@@ -44,5 +44,3 @@ gem 'mysql2'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'underscore-rails'
-
-gem 'debugger'

@@ -63,9 +63,7 @@ class Flip < ActiveRecord::Base
         }
         doc = Nokogiri::HTML(res.body)
 
-        rating = doc.at_css('a.linkid').parent.parent.parent.parent.parent.parent.parent.children[3].children[1].children.children.children.text.to_f
-
-        debugger
+        rating = doc.at_css('a.linkid').parent.parent.parent.parent.parent.parent.parent.children[1].children[1].children.children.children.text.to_f
 
         flip[:rating] = rating if rating > 0
         flip[:url] = url
