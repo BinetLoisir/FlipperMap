@@ -4,7 +4,11 @@ class MapController < ApplicationController
     @longitude = Bar.first[:longitude]
     first_bar_list = Bar.all.map do |bar|
       description = "<a href=\"#{bar[:url]}\" class=\"hidden-link-black\"><b>#{bar[:name]}</b></a><br>"
-      description += bar.location.map { |location| "#{location.flip[:name]} (#{location.flip[:rating]}/10)" }.join('<br>')
+      bar.location.map do |location|
+        description += "#{location.flip[:name]}"
+        description += " (#{location.flip[:rating]}/10)" if location.flip[:rating].to_f > 0
+        description += '<br>'
+      end
       {
         "lat" => bar[:latitude].to_s,
         "lng" => bar[:longitude].to_s,
