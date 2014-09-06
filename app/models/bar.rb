@@ -10,51 +10,51 @@ class Bar < ActiveRecord::Base
     puts urls
     
     urls.each do |url|
-      sleep 2
+      begin
+        uri = URI.parse(url)
+        puts uri
+        req = Net::HTTP::Get.new(uri.to_s)
+        res = Net::HTTP.start(uri.host, uri.port) {|http|
+          http.request(req)
+        }
+        File.open("bar_temp", 'w') { |file| file.write(res.body.force_encoding('UTF-8')) }
+        doc = Nokogiri::HTML(res.body)
+        name = doc.at_css('div#featured-content').children.children.first.text
+        next if find_by(name: name)
 
-      uri = URI.parse(url)
-      puts uri
-      req = Net::HTTP::Get.new(uri.to_s)
-      res = Net::HTTP.start(uri.host, uri.port) {|http|
-        http.request(req)
-      }
+        address = doc.at_css('div#featured-content').children.children.children[1].text
+        raw_html = doc.at_css('div#featured-map').text
+        geolocation = raw_html.scan(/(google\.maps\.LatLng\()(.*)(\))/).first[1].split(',').map(&:to_f)
+        latitude = geolocation[0]
+        longitude = geolocation[1]
 
-      File.open("bar_temp", 'w') { |file| file.write(res.body.force_encoding('UTF-8')) }
+        bar = create(
+          name: name,
+          address: address,
+          latitude: latitude,
+          longitude: longitude,
+          url: url,
+        )
 
-      doc = Nokogiri::HTML(res.body)
-
-
-      name = doc.at_css('div#featured-content').children.children.first.text
-      next if find_by(name: name)
-
-      address = doc.at_css('div#featured-content').children.children.children[1].text
-      raw_html = doc.at_css('div#featured-map').text
-      geolocation = raw_html.scan(/(google\.maps\.LatLng\()(.*)(\))/).first[1].split(',').map(&:to_f)
-      latitude = geolocation[0]
-      longitude = geolocation[1]
-
-      bar = create(
-        name: name,
-        address: address,
-        latitude: latitude,
-        longitude: longitude,
-        url: url,
-      )
-
-      doc.at_css('div.entry ul').children.each do |item|
-        next if item.text == "\n"
-        flip_name = item.children[0].text
-        flip = Flip.find_by_name(flip_name)
-        flip ||= Flip.create(name: flip_name)
-        Location.create(flipper_id: flip[:id], bar_id: bar[:id])
-        puts flip_name
+        doc.at_css('div.entry ul').children.each do |item|
+          next if item.text == "\n"
+          flip_name = item.children[0].text
+          flip = Flip.find_by_name(flip_name)
+          flip ||= Flip.create(name: flip_name)
+          Location.create(flipper_id: flip[:id], bar_id: bar[:id])
+          puts flip_name
+        end
+        puts bar[:name]
       end
-
-      puts bar[:name]
+    rescue
+      puts "Problem with #{url}"
     end
 
     return true
   end
+
+
+
 
   def self.one
     url = 'http://geoflipper.fr/le-metro-2/'
