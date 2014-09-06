@@ -45,9 +45,10 @@ class Bar < ActiveRecord::Base
           puts flip_name
         end
         puts bar[:name]
+
+      rescue
+        puts "Problem with #{url}"
       end
-    rescue
-      puts "Problem with #{url}"
     end
 
     return true
