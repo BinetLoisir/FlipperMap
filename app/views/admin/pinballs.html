@@ -1,0 +1,38 @@
+<div class="well well-lg">
+  <script type="text/javascript">
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    function onSuccess(position){
+      console.log({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      })
+      return {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+    }
+    function onError(position){
+      return false;
+    }
+  </script>
+  <% Flip.all.order(:id).map do |flip| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span class="badge"><%= flip[:id]%></span>&nbsp;
+      <%= flip[:name]%>
+    </div>
+    <table class="table">
+      <tr>
+        <td>URL</td>
+        <td><a href="<%=flip[:url]%>"><%=flip[:url]%></td>
+      </tr>
+      <tr>
+        <td>Rating</td>
+        <td><%=flip[:rating]%></td>
+      </tr>
+    </table>
+  </div>
+  <% end %>
+</div>
+
+<script type='text/javascript'>$('.hidden-link-black').tooltip()</script>
