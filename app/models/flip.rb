@@ -5,7 +5,6 @@ class Flip < ActiveRecord::Base
   self.table_name = 'flippers'
   has_many :location, foreign_key: 'flipper_id'
   has_many :bars, through: :location, source: :bar
-  # has_many :location, foreign_key: 'flipper_id'
 
   def self.fill_table
     uri = URI.parse('http://geoflipper.fr/')
@@ -63,7 +62,11 @@ class Flip < ActiveRecord::Base
         }
         doc = Nokogiri::HTML(res.body)
 
-        rating = doc.at_css('a.linkid').parent.parent.parent.parent.parent.parent.parent.children[1].children[1].children.children.children.text.to_f
+        begin
+          rating = doc.at_css('a.linkid').parent.parent.parent.parent.parent.parent.parent.children[1].children[1].children.children.children.text.to_f
+        rescue NoMethodError
+          rating = doc.at_css('a.linkid').parent.parent.parent.parent.parent.parent.parent.children[3].children[1].children.children.children.text.to_f
+        end
 
         flip[:rating] = rating if rating > 0
         flip[:url] = url
@@ -75,6 +78,17 @@ class Flip < ActiveRecord::Base
       rescue
         puts "Problem with: #{flip[:name]}"
         1
+      end
+    end
+
+    def self.merge
+      all.each do |flip|
+        where(url: flip[:url]) do |flip_bis|
+          Location.where(flipper_id: flip_bis[:id]).each do |location|
+            location[:flipper_id] = flip[:id]
+          end
+          flip_bis.destroy
+        end
       end
     end
 
