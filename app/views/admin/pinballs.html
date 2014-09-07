@@ -28,7 +28,10 @@
       </tr>
       <tr>
         <td>Rating</td>
-        <td><%=flip[:rating]%></td>
+        <td>
+          <%=flip[:rating]%>&nbsp;
+          <% (0..((flip[:rating].to_f - 5.5) * 2).to_i).each do %><i class="fa fa-star"></i><% end %>
+        </td>
       </tr>
     </table>
   </div>
