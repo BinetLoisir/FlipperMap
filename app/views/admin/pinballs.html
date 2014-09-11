@@ -30,7 +30,7 @@
         <td>Rating</td>
         <td>
           <%=flip[:rating]%>&nbsp;
-          <% (0..((flip[:rating].to_f - 5.5) * 2).to_i).each do %><i class="fa fa-star"></i><% end %>
+          <% (0..((flip[:rating].to_f - 6) * 2).to_i).each do %><i class="fa fa-star"></i><% end %>
         </td>
       </tr>
     </table>
