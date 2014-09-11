@@ -102,4 +102,11 @@ class Bar < ActiveRecord::Base
   def self.clean
     delete_all
   end
+
+  def self.google
+    all.each do |bar|
+      bar[:google_id] = Google.place(bar[:name], address: bar[:address])
+      bar.save
+    end
+  end
 end
