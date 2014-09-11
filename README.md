@@ -1,6 +1,6 @@
 Clone the repo : `git clone git@github.com:BinetLoisir/FlipperMap.git`
 
-Install dependencie : `sudo apt-get install libpq-dev `
+Install dependencies : `sudo apt-get install libpq-dev `
 
 Install gems : `bundle install`
 
