@@ -20,6 +20,12 @@
 .page {
   position: relative;
   top: 45px;
+  background: white;
+}
+
+.well {
+  background-color: white !important;
+  border: none !important;
 }
 
 .hidden-link-white {

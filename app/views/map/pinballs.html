@@ -16,7 +16,7 @@
     }
   </script>
   <% Flip.all.order('rating IS NULL, rating DESC').map do |flip| %>
-  <div id="row col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+  <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <% if flip[:rating].to_f > 0 %><span class="badge"><%= flip[:rating]%></span>&nbsp;<% end %>
