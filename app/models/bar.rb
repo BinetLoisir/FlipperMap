@@ -106,7 +106,11 @@ class Bar < ActiveRecord::Base
 
   def self.google
     all.each do |bar|
+      next if bar[:google_id]
+      puts "Starting Goole search for #{bar[:name]}"
       bar[:google_id] = Google.place(bar[:name], address: bar[:address])
+      next if bar[:google_id] == true
+      break if bar[:google_id] == false
       bar.save
     end
   end

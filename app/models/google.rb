@@ -16,6 +16,12 @@ class Google < ActiveRecord::Base
     response = Net::HTTP.get_response(uri)
     body = JSON.parse(response.body)
 
+    if body['status'] == 'OVER_QUERY_LIMIT'
+      puts body['status']
+      puts body['error_message']
+      return false
+    end
+
     begin
       response = body['results'][0]
       puts response['name']
@@ -38,10 +44,10 @@ class Google < ActiveRecord::Base
         types: response['types'].to_json,
       )
 
-      google_place.place_id
+      return google_place.place_id
     rescue
       debugger
-      1
+      return true
     end
   end
 end
