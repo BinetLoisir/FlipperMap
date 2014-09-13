@@ -3,11 +3,13 @@ class MapController < ApplicationController
     @latitude = Bar.first[:latitude]
     @longitude = Bar.first[:longitude]
     first_bar_list = Bar.all.map do |bar|
-      description = "<a href=\"#{bar[:url]}\" class=\"hidden-link-black\"><b>#{bar[:name]}</b></a><br>"
+      description = "<a href=\"#{bar[:url]}\" class=\"hidden-link-black\"><b>#{bar[:name]}"
+      description += " (#{bar.google_rating}/5)" if bar.google_rating.to_f > 0
+      description += '</b></a><br>'
       bar.location.map do |location|
-        description += "#{location.flip[:name]}"
+        description += "<a href=\"#{location.flip[:url]}\" class=\"hidden-link-black\">#{location.flip[:name]}"
         description += " (#{location.flip[:rating]}/10)" if location.flip[:rating].to_f > 0
-        description += '<br>'
+        description += '<br></a>'
       end
       {
         "lat" => bar[:latitude].to_s,
@@ -23,7 +25,7 @@ class MapController < ApplicationController
     second_bar_list = CheapBar.all.map do |bar|
       description = "<b>#{bar[:name]}</b><br>"
       description += "#{bar[:price]} € en happy hour"
-      description +=bar[:original_price] > 0 ? " (#{bar[:original_price]} € sinon)<br>" : "<br>"
+      description += bar[:original_price] > 0 ? " (#{bar[:original_price]} € sinon)<br>" : "<br>"
       description += "#{bar[:happy_hour]}" unless bar[:happy_hour] == "Happy hour: h - h"
       {
         "lat" => bar[:latitude].to_s,

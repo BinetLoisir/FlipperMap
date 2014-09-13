@@ -5,6 +5,11 @@ class Bar < ActiveRecord::Base
   has_many :flips, through: :location, source: :flip
   has_many :location
 
+  def google_rating
+    google_bar = Google.find_by(place_id: google_id)
+    google_bar ? google_bar[:rating] : nil
+  end
+
   def self.fill_table
     urls = YAML.load_file('urls.yml')
     puts urls
