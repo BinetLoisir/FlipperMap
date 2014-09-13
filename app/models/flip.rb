@@ -14,8 +14,6 @@ class Flip < ActiveRecord::Base
       http.request(req)
     }
 
-    File.open("geoflipper", 'w') { |file| file.write(res.body.force_encoding('UTF-8')) }
-
     doc = Nokogiri::HTML(res.body)
 
     doc.at_css('ul.sub-menu').children.each do |item|

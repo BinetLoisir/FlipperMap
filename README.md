@@ -4,7 +4,7 @@ Install dependencies : `sudo apt-get install libpq-dev `
 
 Install gems : `bundle install`
 
-Initialize database : `rake db:create db:migrate db:init`
+Initialize database : `rake db:init`
 
 Launch server : `bin/rails server`
 

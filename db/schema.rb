@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 20140911200212) do
     t.float    "latitude",   limit: 24
     t.float    "longitude",  limit: 24
     t.float    "rating",     limit: 24
+    t.string   "types"
     t.string   "place_id"
     t.string   "old_id"
-    t.string   "types"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

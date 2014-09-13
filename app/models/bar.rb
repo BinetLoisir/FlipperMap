@@ -51,6 +51,7 @@ class Bar < ActiveRecord::Base
       end
     end
 
+     File.delete("bar_temp")
     return true
   end
 
