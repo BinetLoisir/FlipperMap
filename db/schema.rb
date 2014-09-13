@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911200212) do
+ActiveRecord::Schema.define(version: 20140913135422) do
 
   create_table "bars", force: true do |t|
     t.string   "name"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20140911200212) do
     t.datetime "updated_at"
     t.string   "google_id"
   end
+
+  add_index "bars", ["google_id"], name: "bars_ibfk_1", using: :btree
 
   create_table "cheap_bars", force: true do |t|
     t.string   "name"
@@ -56,6 +58,8 @@ ActiveRecord::Schema.define(version: 20140911200212) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "google", ["place_id"], name: "index_google_on_place_id", unique: true, using: :btree
 
   create_table "locations", force: true do |t|
     t.integer  "flipper_id"
