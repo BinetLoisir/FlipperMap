@@ -47,3 +47,5 @@ gem 'gmaps4rails'
 gem 'underscore-rails'
 
 gem "font-awesome-rails"
+
+gem 'upmin-admin'
