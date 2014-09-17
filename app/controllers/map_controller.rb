@@ -26,17 +26,21 @@ class MapController < ApplicationController
       }
     end
     second_bar_list = CheapBar.all.map do |bar|
-      description = "<b>#{bar[:name]}</b><br>"
+      description = "<b>#{bar[:name]}"
+      description += " (#{bar.google_rating}/5)" if bar.google_rating.to_f > 0
+      description += '</b><br>'
       description += "#{bar[:price]} € en happy hour"
       description += bar[:original_price] > 0 ? " (#{bar[:original_price]} € sinon)<br>" : "<br>"
       description += "#{bar[:happy_hour]}" unless bar[:happy_hour] == "Happy hour: h - h"
+      stars = [[(bar.google_rating.to_f - 0.01) * 2 - 5, 3].min, 0].max.to_i
+      icon_url = "/assets/#{stars}_stars_0_pinballs.png"
       {
         "lat" => bar[:latitude].to_s,
         "lng" => bar[:longitude].to_s,
         "picture" => {
-          "url" => "/assets/holypint_tiny.png",
-          "width" =>  28,
-          "height" => 40
+          "url" => icon_url,
+          "width" =>  70,
+          "height" => 70
         },
         "infowindow" => description
       }

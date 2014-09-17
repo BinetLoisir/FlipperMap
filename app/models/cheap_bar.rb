@@ -1,6 +1,11 @@
 require 'net/http'
 
 class CheapBar < ActiveRecord::Base
+  def google_rating
+    google_bar = Google.find_by(place_id: google_id)
+    google_bar ? google_bar[:rating] : nil
+  end
+
   def self.mgb
     doc = File.open("mistergoodbeer.html", 'r').read
     zde = doc.scan(/gWindowContents0.push\((.*?)\;\"\)\;/)
