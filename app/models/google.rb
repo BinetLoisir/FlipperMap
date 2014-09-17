@@ -46,7 +46,7 @@ class Google < ActiveRecord::Base
 
       return google_place.place_id
     rescue
-      debugger
+      puts response.body.inspect
       return true
     end
   end
