@@ -11,13 +11,16 @@ class MapController < ApplicationController
         description += " (#{location.flip[:rating]}/10)" if location.flip[:rating].to_f > 0
         description += '<br></a>'
       end
+      stars = [[(bar.google_rating.to_f - 0.01) * 2 - 5, 3].min, 0].max.to_i
+      pbs = [bar.location.size, 2].min
+      icon_url = "/assets/#{stars}_stars_#{pbs}_pinballs.png"
       {
         "lat" => bar[:latitude].to_s,
         "lng" => bar[:longitude].to_s,
         "picture" => {
-          "url" => "/assets/ring.png",
-          "width" =>  28,
-          "height" => 24
+          "url" => icon_url,
+          "width" =>  70,
+          "height" => 70
         },
         "infowindow" => description
       }
