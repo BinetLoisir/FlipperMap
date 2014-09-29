@@ -23,6 +23,10 @@
   background: white;
 }
 
+.fullscreen {
+  width: 100%;
+}
+
 .well {
   background-color: white !important;
   border: none !important;
