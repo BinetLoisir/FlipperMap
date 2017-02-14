@@ -30,12 +30,13 @@ document.getElementById("map").style.height = myHeight+'px';
 
 handler = Gmaps.build('Google');
 handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-  if(navigator.geolocation)
-    navigator.geolocation.getCurrentPosition(displayOnMap);
   bar_array = JSON.parse("<%=raw escape_javascript @bar_list %>")
   markers = handler.addMarkers(bar_array);
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
+  handler.getMap().setCenter({lat: 48.847593, lng: 2.331089})
+  if(navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(displayOnMap);
   handler.getMap().setZoom(16);
 });
 
